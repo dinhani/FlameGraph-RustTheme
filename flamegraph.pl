@@ -451,7 +451,7 @@ sub color {
 			$type = "grey"
 
 		# crate: core
-		} elsif ($name =~ /core::/) {
+		} elsif ($name =~ /^<?core::/) {
 			$type = "grey"
 
 		# rust
