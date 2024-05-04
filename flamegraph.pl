@@ -433,6 +433,37 @@ sub color {
 	}
 
 	# multi palettes
+	if (defined $type and $type eq "rust") {
+		# crate: alloc
+		if (($name =~ /alloc::/) && ($name !~ /^core::/)) {
+			$type = "orange"
+
+		# crate: tokio
+		} elsif ($name =~ /tokio::/) {
+			$type = "grey"
+
+		# crate: futures
+		} elsif ($name =~ /futures_util::/) {
+			$type = "grey"
+
+		# crate: std
+		} elsif ($name =~ /std::/) {
+			$type = "grey"
+
+		# crate: core
+		} elsif ($name =~ /core::/) {
+			$type = "grey"
+
+		# rust
+		} elsif ($name =~ /::/) {
+			$type = "yellow"
+
+		# native
+		} else {
+			$type = "red"
+		}
+	}
+
 	if (defined $type and $type eq "java") {
 		# Handle both annotations (_[j], _[i], ...; which are
 		# accurate), as well as input that lacks any annotations, as
@@ -544,6 +575,12 @@ sub color {
 		my $r = 190 + int(65 * $v1);
 		my $g = 90 + int(65 * $v1);
 		return "rgb($r,$g,0)";
+	}
+	if (defined $type and $type eq "grey") {
+		my $r = 190 + int(20 * $v1);
+		my $g = 190 + int(20 * $v1);
+		my $b = 190 + int(20 * $v1);
+		return "rgb($r,$g,$b)";
 	}
 
 	return "rgb(0,0,0)";
